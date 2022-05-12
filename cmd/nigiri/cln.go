@@ -12,6 +12,9 @@ var cln = cli.Command{
 	Name:   "cln",
 	Usage:  "invoke Core Lightning command line",
 	Action: clnAction,
+	Flags: []cli.Flag{
+		&noTTYFlag,
+	},
 }
 
 func clnAction(ctx *cli.Context) error {
@@ -30,8 +33,9 @@ func clnAction(ctx *cli.Context) error {
 		return err
 	}
 
+	isNoTTY := ctx.Bool("no-tty")
 	ttyOption := "-it"
-	if isCi {
+	if isCi || isNoTTY {
 		ttyOption = "-i"
 	}
 	rpcArgs := []string{"exec", ttyOption, "cln", "lightning-cli", "--network=" + network}
