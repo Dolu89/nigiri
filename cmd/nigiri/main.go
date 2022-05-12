@@ -35,6 +35,12 @@ var lnFlag = cli.BoolFlag{
 	Value: false,
 }
 
+var noTTYFlag = cli.BoolFlag{
+	Name:  "no-tty",
+	Usage: "disable TTY for the current command",
+	Value: false,
+}
+
 var datadirFlag = cli.StringFlag{
 	Name:  "datadir",
 	Usage: "use different data directory",

@@ -12,6 +12,9 @@ var lnd = cli.Command{
 	Name:   "lnd",
 	Usage:  "invoke LND command line",
 	Action: lndAction,
+	Flags: []cli.Flag{
+		&noTTYFlag,
+	},
 }
 
 func lndAction(ctx *cli.Context) error {
@@ -30,8 +33,9 @@ func lndAction(ctx *cli.Context) error {
 		return err
 	}
 
+	isNoTTY := ctx.Bool("no-tty")
 	ttyOption := "-it"
-	if isCi {
+	if isCi || isNoTTY {
 		ttyOption = "-i"
 	}
 	rpcArgs := []string{"exec", ttyOption, "lnd", "lncli", "--network=" + network}
