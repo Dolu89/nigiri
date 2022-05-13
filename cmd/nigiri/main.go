@@ -73,6 +73,7 @@ func main() {
 		&update,
 		&faucet,
 		&versionCmd,
+		&statusCmd,
 	)
 
 	app.Before = func(ctx *cli.Context) error {
